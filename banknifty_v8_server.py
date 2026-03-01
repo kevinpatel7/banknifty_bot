@@ -232,8 +232,9 @@ CHECK_INTERVAL   = 120       # seconds between refreshes
 #
 # Leave blank ("") if you don't want that alert type
 
-TELEGRAM_TOKEN   = "7753587413:AAE7pHNk20cv3FyvJsmzX2aPLQ4htYhVQnQ"
-TELEGRAM_CHAT_ID = "8129647943"
+import os as _os
+TELEGRAM_TOKEN   = _os.environ.get("TELEGRAM_TOKEN","7753587413:AAE7pHNk20cv3FyvJsmzX2aPLQ4htYhVQnQ")
+TELEGRAM_CHAT_ID = _os.environ.get("TELEGRAM_CHAT_ID","8129647943")
 
 FAST2SMS_API_KEY = ""    # ← paste your Fast2SMS API key here
 YOUR_MOBILE      = ""    # ← your 10-digit Indian mobile number (no +91)
@@ -2268,7 +2269,7 @@ while True:
             import time as _tsleep
             _tsleep.sleep(min(_secs, 1800))   # check every 30 min max
             continue
-    except:
+    except Exception as _skip:
         now     = datetime.now(IST)
         today   = now.date()
         cur_t   = now.time()
@@ -2505,7 +2506,7 @@ while True:
         log.info("Server stopped by user (KeyboardInterrupt)")
         try:
             os.remove(PID_FILE)
-        except:
+        except Exception:
             pass
         break
     except Exception as e:
