@@ -2,13 +2,13 @@ name: BankNifty Auto Trader
 
 on:
   schedule:
-    - cron: '45 2 * * 1-5'  # 8:15 AM IST Mon-Fri (IST = UTC+5:30)
-  workflow_dispatch:          # allows manual run anytime
+    - cron: '45 2 * * 1-5'
+  workflow_dispatch:
 
 jobs:
   trade:
     runs-on: ubuntu-latest
-    timeout-minutes: 480      # runs for up to 8 hours (full market day)
+    timeout-minutes: 480
 
     steps:
     - name: Checkout code
@@ -31,3 +31,11 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       run: |
         python banknifty_v8_server.py
+
+    - name: Upload Excel trade log
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: banknifty-trades
+        path: banknifty_trades.xlsx
+        retention-days: 30
