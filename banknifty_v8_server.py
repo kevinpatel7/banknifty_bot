@@ -234,10 +234,10 @@ CHECK_INTERVAL   = 120       # seconds between refreshes
 
 import os as _os
 TELEGRAM_TOKEN   = _os.environ.get("TELEGRAM_TOKEN","7753587413:AAHWLS-qZ7aVxMCycHiT8yhaUcEHNlRg_hU")
-TELEGRAM_CHAT_ID = _os.environ.get("TELEGRAM_CHAT_ID","7753587413")
+TELEGRAM_CHAT_ID = _os.environ.get("TELEGRAM_CHAT_ID","8129647943")
 
 FAST2SMS_API_KEY = ""    # ← paste your Fast2SMS API key here
-YOUR_MOBILE      = "9510684371"    # ← 7753587413:AAHWLS-qZ7aVxMCycHiT8yhaUcEHNlRg_hU
+YOUR_MOBILE      = ""    # ← your 10-digit Indian mobile number (no +91)
 
 # Alert preferences
 ALERT_ON_SIGNAL     = True   # send alert when BUY/SELL signal fires
