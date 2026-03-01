@@ -234,7 +234,7 @@ CHECK_INTERVAL   = 120       # seconds between refreshes
 
 import os as _os
 TELEGRAM_TOKEN   = _os.environ.get("TELEGRAM_TOKEN","7753587413:AAE7pHNk20cv3FyvJsmzX2aPLQ4htYhVQnQ")
-TELEGRAM_CHAT_ID = _os.environ.get("TELEGRAM_CHAT_ID","8129647943")
+TELEGRAM_CHAT_ID = _os.environ.get("TELEGRAM_CHAT_ID","7753587413")
 
 FAST2SMS_API_KEY = ""    # ← paste your Fast2SMS API key here
 YOUR_MOBILE      = ""    # ← your 10-digit Indian mobile number (no +91)
