@@ -143,6 +143,31 @@ _t_now = _now.time()
 _market_start = __import__("datetime").time(8, 15)
 _market_end   = __import__("datetime").time(16, 0)
 
+# ── INSTANT TELEGRAM PING — fires before any sleeping ────────────────────
+try:
+    import requests as _rq_early
+    _token_early = _os.environ.get("TELEGRAM_TOKEN","7753587413:AAHWLS-qZ7aVxMCycHiT8yhaUcEHNlRg_hU")
+    _chat_early  = _os.environ.get("TELEGRAM_CHAT_ID","8129647943")
+    _now_str_early = __import__("datetime").datetime.now(
+        __import__("pytz").timezone("Asia/Kolkata")).strftime("%d %b %Y %H:%M IST")
+    _ping_early = (
+        "<b>\u2705 BankNifty Bot is ONLINE</b>\n"
+        f"Started: {_now_str_early}\n"
+        "Mode: PAPER TRADE\n"
+        "\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\n"
+        "Bot will sleep until 8:15 AM IST\n"
+        "Then train ML and send morning briefing\n"
+        "Trade signals follow automatically"
+    )
+    _rq_early.post(
+        f"https://api.telegram.org/bot{_token_early}/sendMessage",
+        data={"chat_id": _chat_early, "text": _ping_early, "parse_mode": "HTML"},
+        timeout=10
+    )
+    print("STARTUP TELEGRAM SENT!")
+except Exception as _ep:
+    print(f"Early ping failed: {_ep}")
+
 if _now.weekday() >= 5:
     _secs = seconds_until_market()
     _hrs  = int(_secs//3600)
