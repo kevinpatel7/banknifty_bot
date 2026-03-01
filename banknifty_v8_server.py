@@ -2252,11 +2252,32 @@ print("=" * 80)
 _crash_count = 0
 _MAX_CRASHES = 10
 
-# Notify Telegram that server has started
+# ── Send startup Telegram message immediately ──────────────────────────────
+import datetime as _dt_mod
+_now_ist = _dt_mod.datetime.now(__import__("pytz").timezone("Asia/Kolkata"))
 try:
-    _send_tg_startup(TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, PAPER_TRADE_MODE)
-except:
-    pass
+    import requests as _rq
+    if TELEGRAM_TOKEN and TELEGRAM_CHAT_ID:
+        _msg = (
+            "<b>✅ BankNifty Bot Started on GitHub</b>\n"
+            f"Time: {_now_ist.strftime('%d %b %Y %H:%M IST')}\n"
+            f"Mode: {'PAPER TRADE' if PAPER_TRADE_MODE else 'LIVE TRADE'}\n"
+            "━━━━━━━━━━━━━━━━━━━━\n"
+            "Bot is running on GitHub servers\n"
+            "Auto-schedule: Mon-Fri 8:15 AM IST\n"
+            "You will get trade signals during market hours"
+        )
+        _rq.post(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            data={"chat_id": TELEGRAM_CHAT_ID, "text": _msg,
+                  "parse_mode": "HTML"},
+            timeout=10
+        )
+        print("Startup Telegram message sent!")
+    else:
+        print("No Telegram credentials found.")
+except Exception as _e:
+    print(f"Startup message failed: {_e}")
 
 while True:
     try:
