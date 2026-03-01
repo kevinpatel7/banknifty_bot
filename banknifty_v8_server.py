@@ -236,6 +236,25 @@ import os as _os
 TELEGRAM_TOKEN   = _os.environ.get("TELEGRAM_TOKEN","7753587413:AAHWLS-qZ7aVxMCycHiT8yhaUcEHNlRg_hU")
 TELEGRAM_CHAT_ID = _os.environ.get("TELEGRAM_CHAT_ID","8129647943")
 
+# ── INSTANT STARTUP PING (fires before anything else) ─────────────────────
+try:
+    import requests as _rq_ping
+    _ping_msg = (
+        "<b>\u2705 BankNifty Bot Starting...</b>\n"
+        "GitHub server is online\n"
+        "Installing libraries and training ML...\n"
+        "This takes 3-5 minutes. Stand by."
+    )
+    _rq_ping.post(
+        f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+        data={"chat_id": TELEGRAM_CHAT_ID, "text": _ping_msg,
+              "parse_mode": "HTML"},
+        timeout=10
+    )
+    print("Startup ping sent to Telegram!")
+except Exception as _pe:
+    print(f"Startup ping failed: {_pe}")
+
 FAST2SMS_API_KEY = ""    # ← paste your Fast2SMS API key here
 YOUR_MOBILE      = ""    # ← your 10-digit Indian mobile number (no +91)
 
