@@ -2295,6 +2295,7 @@ print("=" * 80)
 
 _crash_count = 0
 _MAX_CRASHES = 10
+sess_type = "PRE_MARKET"  # default before first loop
 
 # ── Send startup Telegram message immediately ──────────────────────────────
 import datetime as _dt_mod
@@ -2591,6 +2592,6 @@ while True:
             log.error("Max crashes reached. Server stopped.")
             break
 
-    next_t = CHECK_INTERVAL if sess_type not in ["CLOSED","PRE_MARKET"] else 300
+    next_t = CHECK_INTERVAL if sess_type not in ["CLOSED","PRE_MARKET","OUTSIDE_HOURS"] else 300
     print(f"\n💤  Next refresh in {next_t//60} min {next_t%60} sec…  (Ctrl+C to stop)\n")
     time.sleep(next_t)
